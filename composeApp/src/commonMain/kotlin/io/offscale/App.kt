@@ -1,7 +1,9 @@
 package io.offscale
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -27,29 +29,35 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            val openDialog = remember { mutableStateOf(true) }
-            if (openDialog.value) {
-                BasicAlertDialog(onDismissRequest = {openDialog.value = false}) {
-                    Surface(
-                        modifier = Modifier.wrapContentWidth().wrapContentHeight(),
-                        shape = MaterialTheme.shapes.large,
-                        tonalElevation = AlertDialogDefaults.TonalElevation
-                    ) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text("Hello")
-                            Spacer(modifier = Modifier.height(24.dp))
-                            Button(onClick = {openDialog.value = false}) {
-                                Text("Close")
+            val openDialog = remember { mutableStateOf(false) }
+            Row {
+                if (openDialog.value) {
+                    BasicAlertDialog(onDismissRequest = { openDialog.value = false }) {
+                        Surface(
+                            modifier = Modifier.wrapContentWidth().wrapContentHeight(),
+                            shape = MaterialTheme.shapes.large,
+                            tonalElevation = AlertDialogDefaults.TonalElevation
+                        ) {
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Text("Hello")
+                                Spacer(modifier = Modifier.height(24.dp))
+                                Button(onClick = { openDialog.value = false }) {
+                                    Text("Close")
+                                }
                             }
                         }
                     }
+                } else {
+                    Text("World")
                 }
-            } else {
-                Text("World")
-                Button(onClick = {openDialog.value = true}) {
+            }
+            Spacer(Modifier.fillMaxSize(0.8F))
+            Row {
+                Button(onClick = { openDialog.value = true }) {
                     Text("Open")
                 }
             }
         }
+
     }
 }

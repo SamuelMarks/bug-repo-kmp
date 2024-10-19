@@ -82,7 +82,7 @@ kotlin {
 
 android {
     namespace = "io.offscale"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "io.offscale"
